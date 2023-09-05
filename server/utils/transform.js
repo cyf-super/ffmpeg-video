@@ -15,7 +15,7 @@ module.exports = async function (fileName) {
 
   const createM3u8 = `ffmpeg -i "${dir}\\index.ts" -c copy -map 0 -f segment -segment_list "${dir}\\index.m3u8" -segment_time 10 "${dir}\\${fileDir}-%04d.ts"`
 
-  const m3u8 = `/ffmpeg/${dir}/index.m3u8`
+  const m3u8 = `/ffmpeg/${fileDir}/index.m3u8`
 
   try {
     await executeCommand(createVideoTs)

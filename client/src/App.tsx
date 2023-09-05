@@ -1,18 +1,32 @@
+import { useState, useEffect } from 'react'
+import { Table } from './components/table';
+import { PlyrVideo } from './components/plyrVideo';
+import { useUploadFile, FileType } from './hooks/useUpload';
 import './App.css';
-import { Table } from './compoments/table';
-import { useUploadFile } from './hooks/useUpload';
 
 function App() {
-  const { uploadFile } = useUploadFile();
+  const [videoFile, setVideoFile] = useState<FileType>({})
+  const { uploadFile, fetchFiles, fileQueue } = useUploadFile();
+
+  useEffect(() => {
+    fetchFiles()
+  }, [fetchFiles])
+
   return (
-    <>
-      <div className="upload">
-        <button className="upload-btn">上传文件</button>
-        <input type="file" onChange={uploadFile} />
+    <div className='container'>
+      <div className='file'>
+        <div className="upload">
+          <button className="upload-btn">上传文件</button>
+          <input type="file" onChange={uploadFile} />
+        </div>
+
+        <Table files={fileQueue} playFileVideo={setVideoFile} />
       </div>
 
-      <Table />
-    </>
+      <div className='video'>
+        <PlyrVideo videoFile={videoFile}></PlyrVideo>
+      </div>
+    </div>
   );
 }
 

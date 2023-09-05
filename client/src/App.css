@@ -1,12 +1,21 @@
 #root {
-  max-width: 1280px;
+  max-width: 1280vw;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+}
+
+.container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 .upload {
   position: relative;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+
 }
 
 .upload-btn {
@@ -25,4 +34,13 @@
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+
+.video {
+  flex-grow: 1;
+}
+
+.plyr {
+  width: 90%;
 }

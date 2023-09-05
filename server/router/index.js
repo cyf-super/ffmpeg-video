@@ -4,7 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const util = require('util');
 const transform = require('../utils/transform')
-const { exitPath } = require('../utils/tools')
+const { exitPath, getFilePath } = require('../utils/file')
 
 const writeFilePromise = util.promisify(fs.writeFile);
 const mkdirPromise = util.promisify(fs.mkdir);
@@ -32,11 +32,20 @@ router.post('/upload/file', upload.single('file'), async (ctx) => {
     await writeFilePromise(filePath, buffer)
 
     const src = await transform(fileName)
-    ctx.body = src
+    console.log("file: index.js:35  router.post  src:", src)
+    let files = []
+    if (src) {
+      files = await getFilePath()
+    }
+    ctx.body = files
   } catch (error) {
     console.log("🚀 ~ router.post ~ error:", error)
-
   }
+})
+
+
+router.get('/files', async (ctx) => {
+  ctx.body = await getFilePath()
 })
 
 module.exports = router
