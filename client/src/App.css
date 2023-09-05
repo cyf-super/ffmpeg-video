@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280vw;
+  max-width: 100vw;
   margin: 0 auto;
   text-align: center;
 }
@@ -7,15 +7,13 @@
 .container {
   width: 100vw;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
 }
 
 .upload {
   position: relative;
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-
 }
 
 .upload-btn {
@@ -36,11 +34,56 @@
   cursor: pointer;
 }
 
+.file {
+  width: 40vw;
+  margin-right: 40px;
+}
 
 .video {
-  flex-grow: 1;
+  margin-left: 40px;
 }
 
 .plyr {
-  width: 90%;
+  max-width: 40vw;
+  height: 50vh;
+}
+
+/* 设置表格样式 */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+thead th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+thead th:first-child {
+  padding: 10px 20px;
+}
+
+tbody {
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+tbody tr td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+tbody tr td:last-child {
+  color: #007bff;
+  cursor: pointer;
 }

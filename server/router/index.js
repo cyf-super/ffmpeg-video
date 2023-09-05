@@ -24,7 +24,7 @@ exitPath(ffmpegDir).then(async (res) => {
 })
 
 const upload = multer()
-router.post('/upload/file', upload.single('file'), async (ctx) => {
+router.post('/upload', upload.single('file'), async (ctx) => {
   const { originalname, buffer } = ctx.file
   try {
     const fileName = Date.now() + '_' + originalname
@@ -32,7 +32,6 @@ router.post('/upload/file', upload.single('file'), async (ctx) => {
     await writeFilePromise(filePath, buffer)
 
     const src = await transform(fileName)
-    console.log("file: index.js:35  router.post  src:", src)
     let files = []
     if (src) {
       files = await getFilePath()
