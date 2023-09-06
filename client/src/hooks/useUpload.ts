@@ -20,11 +20,17 @@ export const useUploadFile = () => {
     const files = (event.target as HTMLInputElement).files;
     if (!files) return;
     [...files].forEach(async file => {
-      const formData = new FormData();
-      formData.append('file', file);
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
 
-      const data = await axios.post('/api/upload', formData);
-      await fetchFiles();
+        const data = await axios.post('/api/upload', formData);
+        if (data) {
+          await fetchFiles();
+        }
+      } catch (error) {
+        console.log("file: useUpload.ts:30  uploadFile  error:", error)
+      }
     });
   };
 
