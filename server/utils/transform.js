@@ -11,7 +11,7 @@ module.exports = async function (fileName) {
   const dir = path.join(__dirname, '../uploadFiles/ffmpeg', fileDir)
   await mkdirPromise(dir)
 
-  const createVideoTs = `ffmpeg -y -i "${path.join(__dirname, '..', 'uploadFiles/video', fileName)}" -vcodec copy -acodec copy -vbsf h264_mp4toannexb "${dir}\\index.ts"`;
+  const createVideoTs = `ffmpeg -y -i "${path.join(__dirname, '..', 'uploadFiles/video', fileName)}" -vcodec copy -acodec copy -bsf:v h264_mp4toannexb "${dir}\\index.ts"`;
 
   const createM3u8 = `ffmpeg -i "${dir}\\index.ts" -c copy -map 0 -f segment -segment_list "${dir}\\index.m3u8" -segment_time 10 "${dir}\\${fileDir}-%04d.ts"`
 

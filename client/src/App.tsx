@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import { Table } from './components/table';
 import { PlyrVideo } from './components/plyrVideo';
 import { useUploadFile, FileType } from './hooks/useUpload';
+import { useDownloadFile } from './hooks/useDownload';
 import './App.css';
 
 function App() {
   const [videoFile, setVideoFile] = useState<FileType>({})
   const { uploadFile, fetchFiles, fileQueue } = useUploadFile();
+  const { downloadFile } = useDownloadFile()
 
   useEffect(() => {
     fetchFiles()
@@ -20,7 +22,7 @@ function App() {
           <input type="file" onChange={uploadFile} />
         </div>
 
-        <Table files={fileQueue} playFileVideo={setVideoFile} />
+        <Table files={fileQueue} playFileVideo={setVideoFile} downloadFile={downloadFile} />
       </div>
 
       <div className='video'>

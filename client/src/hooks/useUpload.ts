@@ -2,8 +2,9 @@ import { useCallback, useState } from 'react';
 import axios from 'axios';
 
 export interface FileType {
-  path: string;
   id: number;
+  path: string;
+  originPath: string;
 }
 
 export const useUploadFile = () => {
@@ -24,7 +25,7 @@ export const useUploadFile = () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        const data = await axios.post('/api/upload', formData);
+        const data = await axios.post('/api/file/upload', formData);
         if (data) {
           await fetchFiles();
         }

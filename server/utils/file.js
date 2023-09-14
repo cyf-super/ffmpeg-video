@@ -10,7 +10,8 @@ const getFilePath = async () => {
     const dirs = await readdirPromise(ffmpegDir)
     const files = dirs.map((dir, index) => ({
       id: index + 1,
-      path: '/ffmpeg/' + dir + '/index.m3u8'
+      path: '/ffmpeg/' + dir + '/index.m3u8',
+      originPath: '/video/' + dir + '.mp4'
     }))
 
     return files

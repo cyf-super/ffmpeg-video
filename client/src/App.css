@@ -83,7 +83,7 @@ tbody tr td {
   border: 1px solid #ccc;
 }
 
-tbody tr td:last-child {
+tbody tr td:first-child ~ td {
   color: #007bff;
   cursor: pointer;
 }
