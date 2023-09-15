@@ -5,7 +5,7 @@ const path = require('path')
 const util = require('util');
 const transform = require('../utils/transform')
 const { exitPath, getFilePath } = require('../utils/file')
-const {gerRange} = require('../utils/tools')
+const { gerRange } = require('../utils/tools')
 
 const writeFilePromise = util.promisify(fs.writeFile);
 const mkdirPromise = util.promisify(fs.mkdir);
@@ -59,7 +59,7 @@ router.get('/files', async (ctx) => {
  * 获取文件大小
  */
 router.head('/file/size', async (ctx) => {
-  const {originPath} = ctx.query
+  const { originPath } = ctx.query
   const filePath = path.join(__dirname, '../uploadFiles', originPath)
   const { size } = fs.statSync(filePath)
 
@@ -72,19 +72,19 @@ router.head('/file/size', async (ctx) => {
  * 下载文件
  */
 router.get('/file/download', async (ctx) => {
-  const {originPath} = ctx.query
+  const { originPath } = ctx.query
   const filePath = path.join(__dirname, '../uploadFiles', originPath)
-  
+
   const { size } = fs.statSync(filePath)
 
   const range = ctx.headers.range
-  
+
   if (!range) {
     ctx.set('Accept-Range', 'bytes')
     ctx.body = fs.createReadStream(filePath);
     return
   }
-  
+
   const [start, end] = gerRange(range)
 
   if (start > size || end > size) {
@@ -94,12 +94,10 @@ router.get('/file/download', async (ctx) => {
   }
 
   ctx.set('Accept-Ranges', 'bytes')
-  ctx.set('Content-Length', end - start + 1)
-  ctx.set('Content-Ranges', `bytes ${start}-${end}/${size}`)
+  ctx.set('Content-Range', `bytes ${start}-${end}/${size}`)
   ctx.status = 206
-  
-  ctx.body = fs.createReadStream(filePath, {start, end})  
 
+  ctx.body = fs.createReadStream(filePath, { start, end })
 })
 
 module.exports = router
